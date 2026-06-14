@@ -38,11 +38,12 @@ ansible-inventory \
 ## Example With modulix-automation
 
 ```bash
-cd /home/rene/sources/modulix-automation/ansible
+export SOURCES_DIR="${SOURCES_DIR:-${HOME}/sources}"
+cd "${SOURCES_DIR}/modulix-automation/ansible"
 
 ./scripts/ansible-nav run \
   runbooks/50-applications/wunderbox/10-deploy.yml \
-  -i /home/rene/sources/ansible-inventory-example/inventories/corp/inventory.yml \
+  -i "${SOURCES_DIR}/ansible-inventory-example/inventories/corp/inventory.yml" \
   --limit wunderbox01.prd.dmz.example.invalid
 ```
 
