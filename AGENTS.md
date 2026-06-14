@@ -13,6 +13,7 @@ Use it for:
 - variable contract examples
 
 Do not put real customer or Lightning IT environment values here.
+Do not put copy-paste rollout procedures here. This repository is examples only.
 
 ## Sanitization Rules
 
@@ -29,9 +30,12 @@ Do not put real customer or Lightning IT environment values here.
 ## Boundary
 
 - Public automation code lives in `modulix-automation`.
+- Public automation docs in `modulix-automation` are generic examples and
+  contracts only, not real rollout procedures.
 - Public sanitized inventory examples live here.
 - Real environment inventory lives in private `ansible-inventory-*` repos.
-- Private operation procedures live in private `modulix-operations-*` repos.
+- Private operation procedures and copy-paste runbooks live in private
+  `modulix-operations-*` repos.
 
 ## Validation
 

@@ -35,7 +35,7 @@ ansible-inventory \
   --list >/tmp/ansible-inventory-example.json
 ```
 
-## Usage With modulix-automation
+## Example With modulix-automation
 
 ```bash
 cd /home/rene/sources/modulix-automation/ansible
@@ -46,5 +46,6 @@ cd /home/rene/sources/modulix-automation/ansible
   --limit wunderbox01.prd.dmz.example.invalid
 ```
 
-The example inventory is for structure and variable-contract reference. It is
-not expected to deploy a real environment.
+The example inventory is for structure and variable-contract reference only.
+It is not a copy-paste rollout procedure and is not expected to deploy a real
+environment.
