@@ -45,6 +45,6 @@ For inventory changes:
 
 ```bash
 ansible-inventory \
-  -i inventories/example-corp/inventory.yml \
+  -i inventories/corp/inventory.yml \
   --list >/tmp/ansible-inventory-example.json
 ```

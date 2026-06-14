@@ -21,7 +21,7 @@ ansible-inventory-<customer>
 
 ```text
 inventories/
-  example-corp/
+  corp/
     inventory.yml
     group_vars/
     host_vars/
@@ -31,7 +31,7 @@ inventories/
 
 ```bash
 ansible-inventory \
-  -i inventories/example-corp/inventory.yml \
+  -i inventories/corp/inventory.yml \
   --list >/tmp/ansible-inventory-example.json
 ```
 
@@ -41,8 +41,8 @@ ansible-inventory \
 cd /home/rene/sources/modulix-automation/ansible
 
 ./scripts/ansible-nav run \
-  runbooks/services/12-wunderbox.yml \
-  -i /home/rene/sources/ansible-inventory-example/inventories/example-corp/inventory.yml \
+  runbooks/50-applications/wunderbox/10-deploy.yml \
+  -i /home/rene/sources/ansible-inventory-example/inventories/corp/inventory.yml \
   --limit wunderbox01.prd.dmz.example.invalid
 ```
 

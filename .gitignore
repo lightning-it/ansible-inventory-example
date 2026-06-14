@@ -1,0 +1,27 @@
+# Local Ansible/runtime noise
+*.retry
+*.log
+*.tmp
+*.bak
+*.swp
+*.swo
+*.orig
+.cache/
+
+# Local secret files
+.vault-pass.txt
+.vault_pass
+.vault-password
+vault-password.txt
+vault_pass.txt
+*.key
+*.pem
+*.p12
+*.pfx
+
+# Python/editor noise
+__pycache__/
+*.pyc
+.vscode/
+.idea/
+.DS_Store
