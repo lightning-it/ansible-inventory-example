@@ -1,0 +1,19 @@
+---
+services:
+  wunderbox:
+    repos: enabled
+    firewall: enabled
+    coredns: enabled
+    dhcp: disabled
+    nginx_deploy: enabled
+    vault_deploy: disabled
+    vault_bootstrap: disabled
+    vault_validate: disabled
+    vault_ops: disabled
+    vault_config: disabled
+    minio_deploy: disabled
+    minio_config: disabled
+    minio_bootstrap: disabled
+    nexus_deploy: disabled
+    nginx_config: enabled
+    nexus_config: disabled

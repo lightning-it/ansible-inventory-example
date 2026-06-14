@@ -1,0 +1,29 @@
+---
+vmware_vsphere_vm_name: "{{ inventory_hostname }}"
+vmware_vsphere_template: rhel-10-minimal
+vmware_vsphere_guest_id: rhel10_64Guest
+vmware_vsphere_folder_name: aaps
+vmware_vsphere_vmware_guest_hardware:
+  num_cpus: 4
+  memory_mb: 20480
+vmware_vsphere_vmware_guest_disk:
+  - size_gb: 200
+    type: thin
+vmware_vsphere_network:
+  - name: example-dmz
+    connected: true
+    start_connected: true
+  - name: example-mgmt
+    connected: true
+    start_connected: true
+vmware_vsphere_customization:
+  hostname: aap01
+  domain: prd.dmz.example.invalid
+  dns_servers:
+    - 192.0.2.53
+  nic_setting_map:
+    - ip: 192.0.2.41
+      subnet_mask: 255.255.255.0
+      gateway: 192.0.2.1
+    - ip: 198.51.100.41
+      subnet_mask: 255.255.255.0

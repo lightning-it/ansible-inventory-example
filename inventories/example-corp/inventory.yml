@@ -1,0 +1,33 @@
+---
+all:
+  hosts:
+    localhost:
+      ansible_connection: local
+      ansible_become: false
+
+  children:
+    dmz:
+      children:
+        dmz_prd: {}
+
+    mgmt:
+      hosts:
+        vcenter01.mgmt.example.invalid: {}
+
+    dmz_prd:
+      children:
+        wunderboxes: {}
+        aaps: {}
+        github_runners: {}
+
+    wunderboxes:
+      hosts:
+        wunderbox01.prd.dmz.example.invalid: {}
+
+    aaps:
+      hosts:
+        aap01.prd.dmz.example.invalid: {}
+
+    github_runners:
+      hosts:
+        ciwkr01.prd.dmz.example.invalid: {}

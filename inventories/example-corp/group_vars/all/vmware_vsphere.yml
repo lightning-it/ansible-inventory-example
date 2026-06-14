@@ -1,0 +1,8 @@
+---
+vmware_vsphere_hostname: vcenter01.mgmt.example.invalid
+vmware_vsphere_username: administrator@example.invalid
+vmware_vsphere_password: "{{ lookup('ansible.builtin.env', 'VMWARE_VSPHERE_PASSWORD') }}"
+vmware_vsphere_validate_certs: false
+vmware_vsphere_datacenter: dc-example
+vmware_vsphere_vmware_guest_cluster: cluster-example
+vmware_vsphere_vmware_guest_datastore: datastore-example-01

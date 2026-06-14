@@ -1,0 +1,11 @@
+---
+net_ifaces:
+  - role: uplink
+    iface: ens33
+    ipv4: 192.0.2.41/24
+    gw4: 192.0.2.1
+    zone: dmz
+  - role: mgmt
+    iface: ens34
+    ipv4: 198.51.100.41/24
+    zone: mgmt

@@ -1,0 +1,10 @@
+---
+aap_deploy_setup_download_version: "2.7"
+aap_deploy_topology: growth
+aap_deploy_validate_certs: false
+
+aap_gateway_admin_password_input: "{{ lookup('ansible.builtin.env', 'AAP_GATEWAY_ADMIN_PASSWORD') }}"
+aap_controller_admin_password_input: "{{ lookup('ansible.builtin.env', 'AAP_CONTROLLER_ADMIN_PASSWORD') }}"
+aap_hub_admin_password_input: "{{ lookup('ansible.builtin.env', 'AAP_HUB_ADMIN_PASSWORD') }}"
+aap_eda_admin_password_input: "{{ lookup('ansible.builtin.env', 'AAP_EDA_ADMIN_PASSWORD') }}"
+aap_postgresql_admin_password_input: "{{ lookup('ansible.builtin.env', 'AAP_POSTGRESQL_ADMIN_PASSWORD') }}"
