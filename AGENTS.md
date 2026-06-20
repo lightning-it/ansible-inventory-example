@@ -12,7 +12,7 @@ Use it for:
 - documentation examples for `modulix-automation`
 - variable contract examples
 
-Do not put real customer or Lightning IT environment values here.
+Do not put real customer or internal environment values here.
 Do not put copy-paste rollout procedures here. This repository is examples only.
 
 ## Sanitization Rules
