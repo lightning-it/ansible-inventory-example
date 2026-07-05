@@ -1,10 +1,14 @@
 # ansible-inventory-example
 
-<!-- BEGIN LIT_SHARED_RELEASE_MODEL -->
+<!-- BEGIN LIT_QUALITY_BADGES -->
 
-[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/lightning-it/ansible-inventory-example/badge)](https://scorecard.dev/viewer/?uri=github.com/lightning-it/ansible-inventory-example)
 [![CI](https://github.com/lightning-it/ansible-inventory-example/actions/workflows/repository-quality.yml/badge.svg?branch=develop)](https://github.com/lightning-it/ansible-inventory-example/actions/workflows/repository-quality.yml)
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/lightning-it/ansible-inventory-example/badge)](https://scorecard.dev/viewer/?uri=github.com/lightning-it/ansible-inventory-example)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+
+<!-- END LIT_QUALITY_BADGES -->
+
+<!-- BEGIN LIT_SHARED_RELEASE_MODEL -->
 
 ## Release and Quality Model
 
@@ -22,6 +26,13 @@ See [RELEASE.md](./RELEASE.md) for:
 Repository classification: **Playbook/Runbook Repository**.
 Required test profiles: `pre-commit, yaml-structure, inventory-template-validation`.
 Publishing targets: `none`.
+
+## Supported and Tested Platforms
+
+| Platform / Product | Status | Validation |
+|---|---:|---|
+| ubuntu-latest | Supported | Repository CI |
+| ansible-inventory | Tested where applicable | Repository CI |
 
 <!-- END LIT_SHARED_RELEASE_MODEL -->
 
