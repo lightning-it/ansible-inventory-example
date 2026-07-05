@@ -1,5 +1,29 @@
 # ansible-inventory-example
 
+<!-- BEGIN LIT_SHARED_RELEASE_MODEL -->
+
+[![CI](https://github.com/lightning-it/ansible-inventory-example/actions/workflows/repository-quality.yml/badge.svg?branch=develop)](https://github.com/lightning-it/ansible-inventory-example/actions/workflows/repository-quality.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+
+## Release and Quality Model
+
+This repository follows the Lightning IT shared release and quality model.
+
+See [RELEASE.md](./RELEASE.md) for:
+
+- branch and release flow
+- required quality checks
+- test matrix
+- release evidence
+- artifact publishing
+- supported repository-specific release behavior
+
+Repository classification: **Playbook/Runbook Repository**.
+Required test profiles: `pre-commit, yaml-structure, inventory-template-validation`.
+Publishing targets: `none`.
+
+<!-- END LIT_SHARED_RELEASE_MODEL -->
+
 Sanitized reference inventories and variable examples for ModuLix automation.
 
 ## Purpose
