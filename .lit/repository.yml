@@ -1,25 +1,27 @@
+---
 schema_version: 1
-managed_by: lightning-it/shared-assets
+managed_by: lightning-it/shared-assets-lit
 repository: ansible-inventory-example
 visibility: public
+license_spdx: MIT
 repository_type: playbook_runbook
 release_type: none
 artifact_type: none
 test_profiles:
-- pre-commit
-- yaml-structure
-- inventory-template-validation
+  - pre-commit
+  - yaml-structure
+  - inventory-template-validation
 os_matrix:
-- ubuntu-latest
+  - ubuntu-latest
 product_matrix:
-- ansible-inventory
+  - ansible-inventory
 publishing_targets: []
 galaxy_publish: false
 quay_publish: false
 release_evidence: false
 heavy_incus_required: false
 readme_badges:
-- pre-commit
-- license
+  - pre-commit
+  - license
 workflows:
   ci: repository-quality.yml
