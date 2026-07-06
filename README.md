@@ -1,5 +1,33 @@
 # ansible-inventory-example
 
+<!-- BEGIN LIT_SHARED_RELEASE_MODEL -->
+
+## Release and Quality Model
+
+This repository follows the Lightning IT shared release and quality model.
+
+See [RELEASE.md](./RELEASE.md) for:
+
+- branch and release flow
+- required quality checks
+- test matrix
+- release evidence
+- artifact publishing
+- supported repository-specific release behavior
+
+Repository classification: **Playbook/Runbook Repository**.
+Required test profiles: `pre-commit, yaml-structure, inventory-template-validation`.
+Publishing targets: `none`.
+
+## Supported and Tested Platforms
+
+| Platform / Product | Status | Validation |
+|---|---:|---|
+| ubuntu-latest | Supported | Repository CI |
+| ansible-inventory | Tested where applicable | Repository CI |
+
+<!-- END LIT_SHARED_RELEASE_MODEL -->
+
 <!-- BEGIN LIT_QUALITY_BADGES -->
 
 [![CI](https://github.com/lightning-it/ansible-inventory-example/actions/workflows/repository-quality.yml/badge.svg?branch=develop)](https://github.com/lightning-it/ansible-inventory-example/actions/workflows/repository-quality.yml)
