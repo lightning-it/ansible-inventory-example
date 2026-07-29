@@ -256,25 +256,19 @@ def untracked_review_text(max_bytes: int = 1_000_000) -> str:
     chunks: list[str] = []
     total = 0
     for name in (entry for entry in names.split("\0") if entry):
-        path = ROOT / name
-        if path.is_symlink():
-            raise RuntimeError(
-                f"Copilot review refused for untracked symbolic link: {name}"
-            )
-        try:
-            path.resolve().relative_to(ROOT.resolve())
-        except (OSError, ValueError) as exc:
-            raise RuntimeError(
-                f"Copilot review refused for unsafe untracked path: {name}"
-            ) from exc
         remaining = max_bytes - total
+        descriptor = open_untracked_regular(name)
         try:
-            with path.open("rb") as stream:
+            with os.fdopen(descriptor, "rb") as stream:
+                descriptor = -1
                 payload = stream.read(remaining + 1)
         except OSError as exc:
             raise RuntimeError(
                 f"Copilot review could not inspect untracked path: {name}"
             ) from exc
+        finally:
+            if descriptor >= 0:
+                os.close(descriptor)
         if len(payload) > remaining:
             raise RuntimeError(
                 "Copilot review refused because untracked content exceeds "
@@ -283,6 +277,57 @@ def untracked_review_text(max_bytes: int = 1_000_000) -> str:
         total += len(payload)
         chunks.append(payload.decode("latin-1"))
     return "\n".join(chunks)
+
+
+def open_untracked_regular(name: str) -> int:
+    candidate = Path(name)
+    parts = candidate.parts
+    if (
+        candidate.is_absolute()
+        or not parts
+        or any(part in {"", ".", ".."} for part in parts)
+    ):
+        raise RuntimeError(
+            f"Copilot review refused for unsafe untracked path: {name}"
+        )
+
+    directory_flags = (
+        os.O_RDONLY
+        | getattr(os, "O_CLOEXEC", 0)
+        | getattr(os, "O_DIRECTORY", 0)
+        | getattr(os, "O_NOFOLLOW", 0)
+    )
+    file_flags = (
+        os.O_RDONLY
+        | getattr(os, "O_CLOEXEC", 0)
+        | getattr(os, "O_NOFOLLOW", 0)
+        | getattr(os, "O_NONBLOCK", 0)
+    )
+    directory_descriptors: list[int] = []
+    descriptor = -1
+    keep_descriptor = False
+    try:
+        current = os.open(ROOT, directory_flags)
+        directory_descriptors.append(current)
+        for component in parts[:-1]:
+            current = os.open(component, directory_flags, dir_fd=current)
+            directory_descriptors.append(current)
+        descriptor = os.open(parts[-1], file_flags, dir_fd=current)
+        if not stat.S_ISREG(os.fstat(descriptor).st_mode):
+            raise RuntimeError(
+                f"Copilot review refused for non-regular untracked path: {name}"
+            )
+        keep_descriptor = True
+        return descriptor
+    except OSError as exc:
+        raise RuntimeError(
+            f"Copilot review could not safely inspect untracked path: {name}"
+        ) from exc
+    finally:
+        if descriptor >= 0 and not keep_descriptor:
+            os.close(descriptor)
+        for directory_descriptor in reversed(directory_descriptors):
+            os.close(directory_descriptor)
 
 
 def planned_diff() -> str:
