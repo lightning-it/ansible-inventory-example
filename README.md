@@ -75,7 +75,7 @@ ansible-inventory \
 
 ```bash
 export SOURCES_DIR="${SOURCES_DIR:-${HOME}/sources}"
-cd "${SOURCES_DIR}/modulix-automation/ansible"
+cd "${SOURCES_DIR}/modulix-automation/ansible" || exit
 
 ./scripts/ansible-nav run \
   runbooks/50-applications/wunderbox/10-deploy.yml \
