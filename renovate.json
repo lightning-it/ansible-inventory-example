@@ -52,9 +52,12 @@
       "groupName": "python 3.11 lockfile runtimes"
     },
     {
-      "description": "Keep repository checks aligned with their lockfile",
+      "description": "Keep repository and inventory checks aligned with their lockfiles",
       "matchManagers": ["github-actions"],
-      "matchFileNames": [".github/workflows/repository-quality.yml"],
+      "matchFileNames": [
+        ".github/workflows/inventory-quality.yml",
+        ".github/workflows/repository-quality.yml"
+      ],
       "matchDepNames": ["python"],
       "allowedVersions": "/^3\\.14(?:\\.\\d+)?$/",
       "groupName": "python 3.14 lockfile runtimes"
