@@ -8,10 +8,17 @@ ansible-inventory -i inventories/corp/inventory.yml --list >"$output"
 python3 -m json.tool "$output" >/dev/null
 
 if jq -e '
-  .. | objects | keys[]?
-  | select(test("(^|_)(password|passwd|token|secret|private_key|api_key)($|_)"; "i"))
+  .. | objects | to_entries[]?
+  | select(.key | test("(^|_)(password|passwd|token|secret|private_key|api_key)($|_)"; "i"))
+  | select(
+      (.value | type) != "string"
+      or
+      (.value | test(
+        "^\\{\\{ lookup\\('\''ansible\\.builtin\\.env'\'', '\''[A-Z][A-Z0-9_]*'\''\\) \\}\\}$"
+      ) | not)
+    )
 ' "$output" >/dev/null; then
-  echo "ERROR: secret-like variable names are forbidden in rendered example inventory." >&2
+  echo "ERROR: secret-like variables must use an exact environment lookup; literal values are forbidden." >&2
   exit 1
 fi
 
