@@ -7,6 +7,14 @@ trap 'rm -f "$output"' EXIT
 ansible-inventory -i inventories/corp/inventory.yml --list >"$output"
 python3 -m json.tool "$output" >/dev/null
 
+if jq -e '
+  .. | objects | keys[]?
+  | select(test("(^|_)(password|passwd|token|secret|private_key|api_key)($|_)"; "i"))
+' "$output" >/dev/null; then
+  echo "ERROR: secret-like variable names are forbidden in rendered example inventory." >&2
+  exit 1
+fi
+
 if rg -n --hidden \
   '(10\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}|172\.(1[6-9]|2[0-9]|3[01])\.[0-9]{1,3}\.[0-9]{1,3}|192\.168\.[0-9]{1,3}\.[0-9]{1,3})' \
   inventories; then
