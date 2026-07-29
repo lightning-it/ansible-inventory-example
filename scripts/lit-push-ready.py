@@ -255,6 +255,7 @@ def untracked_review_text(max_bytes: int = 1_000_000) -> str:
     names = git_output("ls-files", "--others", "--exclude-standard", "-z")
     chunks: list[str] = []
     total = 0
+    root = ROOT.resolve()
     for name in (entry for entry in names.split("\0") if entry):
         path = ROOT / name
         if path.is_symlink():
@@ -262,19 +263,39 @@ def untracked_review_text(max_bytes: int = 1_000_000) -> str:
                 f"Copilot review refused for untracked symbolic link: {name}"
             )
         try:
-            path.resolve().relative_to(ROOT.resolve())
+            resolved = path.resolve()
+            resolved.relative_to(root)
         except (OSError, ValueError) as exc:
             raise RuntimeError(
                 f"Copilot review refused for unsafe untracked path: {name}"
             ) from exc
+        if not resolved.is_file():
+            raise RuntimeError(
+                f"Copilot review refused for non-regular untracked path: {name}"
+            )
         remaining = max_bytes - total
+        descriptor = -1
         try:
-            with path.open("rb") as stream:
+            descriptor = os.open(
+                resolved,
+                os.O_RDONLY
+                | getattr(os, "O_NOFOLLOW", 0)
+                | getattr(os, "O_NONBLOCK", 0),
+            )
+            if not stat.S_ISREG(os.fstat(descriptor).st_mode):
+                raise RuntimeError(
+                    f"Copilot review refused for non-regular untracked path: {name}"
+                )
+            with os.fdopen(descriptor, "rb") as stream:
+                descriptor = -1
                 payload = stream.read(remaining + 1)
         except OSError as exc:
             raise RuntimeError(
                 f"Copilot review could not inspect untracked path: {name}"
             ) from exc
+        finally:
+            if descriptor >= 0:
+                os.close(descriptor)
         if len(payload) > remaining:
             raise RuntimeError(
                 "Copilot review refused because untracked content exceeds "
