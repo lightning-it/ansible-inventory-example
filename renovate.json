@@ -52,15 +52,12 @@
       "groupName": "python 3.11 lockfile runtimes"
     },
     {
-      "description": "Keep acceptance and repository checks aligned with their lockfiles",
+      "description": "Keep repository checks aligned with their lockfile",
       "matchManagers": ["github-actions"],
-      "matchFileNames": [
-        ".github/workflows/repository-quality.yml",
-        ".github/workflows/workbench-public-acceptance.yml"
-      ],
+      "matchFileNames": [".github/workflows/repository-quality.yml"],
       "matchDepNames": ["python"],
-      "allowedVersions": "/^3\\.13(?:\\.\\d+)?$/",
-      "groupName": "python 3.13 lockfile runtimes"
+      "allowedVersions": "/^3\\.14(?:\\.\\d+)?$/",
+      "groupName": "python 3.14 lockfile runtimes"
     }
   ]
 }

@@ -1,6 +1,13 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+for required_command in ansible-inventory python3 jq rg; do
+  if ! command -v "$required_command" >/dev/null 2>&1; then
+    echo "ERROR: required validation command is unavailable: $required_command" >&2
+    exit 2
+  fi
+done
+
 output="$(mktemp)"
 trap 'rm -f "$output"' EXIT
 
