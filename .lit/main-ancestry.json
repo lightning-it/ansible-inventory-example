@@ -1,0 +1,7 @@
+{
+  "develop_parent_sha": "045be03ea393ef807f8c162de05052cafeaf6596",
+  "main_sha": "6d35c591fc4731450b3931f6d124cdad4af5378f",
+  "purpose": "Bind the reviewed main ancestry backmerge.",
+  "repository": "lightning-it/ansible-inventory-example",
+  "schema_version": 1
+}
