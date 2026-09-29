@@ -832,6 +832,7 @@ jobs:
             --arg head_repository "${head_repository}" \
             --arg head_sha "${EXPECTED_HEAD}" \
             --arg repository "${REPOSITORY}" \
+            --arg workflow_name "Protected current-revision evidence verifier" \
             --argjson pr_number "${PR_NUMBER}" '
               [.[].workflow_runs[]? |
                 select(.event == "pull_request_target") |
@@ -842,6 +843,22 @@ jobs:
                 select(.head_branch == $head_ref and .head_sha == $head_sha) |
                 select(.repository.full_name == $repository) |
                 select(.head_repository.full_name == $head_repository) |
+                # GitHub can re-associate the mutable pull_requests entry of
+                # an older same-head run with a newer PR. The dynamic run title
+                # remains bound to the PR that actually created the run.
+                select(
+                  .display_title == ("Protected current revision PR #"
+                    + ($pr_number | tostring) + " opened " + $head_sha)
+                  or .display_title == ("Protected current revision PR #"
+                    + ($pr_number | tostring) + " synchronize " + $head_sha)
+                  or .display_title == ("Protected current revision PR #"
+                    + ($pr_number | tostring) + " reopened " + $head_sha)
+                  or .display_title == ("Protected current revision PR #"
+                    + ($pr_number | tostring) + " ready_for_review " + $head_sha)
+                  or .display_title == ("Protected current revision PR #"
+                    + ($pr_number | tostring) + " edited " + $head_sha)
+                ) |
+                select(.name == .display_title or .name == $workflow_name) |
                 select((.pull_requests | length) == 1) |
                 select(.pull_requests[0].number == $pr_number) |
                 select(.pull_requests[0].url == ($api_url + "/repos/" + $repository
