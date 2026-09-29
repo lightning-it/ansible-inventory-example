@@ -172,10 +172,12 @@ jobs:
             exit 0
           fi
 
+          body_detail='The organization Required Workflow aggregates exact ingress evidence;'
+          body_detail="${body_detail} it does not request a second AI review of the cumulative diff."
           body_text="$(printf '%s\n%s\n%s' \
             '<!-- lit-protected-promotion:v2 -->' \
             'Automated protected promotion of changes already reviewed on develop.' \
-            'The organization Required Workflow aggregates exact ingress evidence; it does not request a second AI review of the cumulative diff.')"
+            "${body_detail}")"
           ready_body="$(printf '%s\n%s\n%s\n%s' \
             "${head_marker}" "${run_marker}" "${ready_marker}" "${body_text}")"
           pulls="$(gh api --paginate --slurp \
