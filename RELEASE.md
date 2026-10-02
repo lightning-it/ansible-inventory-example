@@ -20,6 +20,9 @@ This repository follows the Lightning IT shared release and quality model.
 - A `develop` to `main` promotion PR is created automatically when releasable changes exist.
 - The `develop` to `main` PR is a manual gate and must never be auto-merged.
 - After `main` changes, a `main` to `develop` backmerge PR is created or updated automatically.
+- When a promotion creates a `main`-only merge commit, the backmerge must preserve
+  that commit's ancestry even if the `main` and `develop` trees already match;
+  otherwise strict up-to-date protection keeps the next promotion PR behind.
 - Integration and backmerge PRs may auto-merge only after required checks pass, all review conversations are resolved, and there are no conflicts.
 
 ## Mandatory Quality Gates
@@ -39,6 +42,6 @@ This repository follows the Lightning IT shared release and quality model.
 
 ## Release Evidence
 
-Release evidence is disabled because this repository does not publish release artifacts. Evidence records the repository name, repository type, version, tag, commit SHA, workflow run, tested matrix combinations, passed/failed/skipped jobs, built artifacts, published artifacts, changelog link, security scan result, and SBOM/provenance/signature links when available.
+Release evidence is disabled because this repository does not publish release artifacts. When release evidence is enabled for a publishing repository, its records include the repository name, repository type, version, tag, commit SHA, workflow run, tested matrix combinations, passed/failed/skipped jobs, built artifacts, published artifacts, changelog link, security scan result, and SBOM/provenance/signature links when available.
 
 Evidence files must not contain tokens, credentials, private inventory values, or secret material.
